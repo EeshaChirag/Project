@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineExamSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminEmail" />
+    </Key>
+    <Property Name="AdminEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdminPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectId" />
+    </Key>
+    <Property Name="SubjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Exams" Relationship="OnlineExamSystemModel.FK__Exam__SubjectId__308E3499" FromRole="Subject" ToRole="Exam" />
+    <NavigationProperty Name="Questions" Relationship="OnlineExamSystemModel.FK__Question__Subjec__41B8C09B" FromRole="Subject" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DateofBirth" Type="DateTime" Precision="0" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Qualification" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="YearofCompletion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="OTPs" Relationship="OnlineExamSystemModel.FK__OTP__UserId__1E6F845E" FromRole="UserInfo" ToRole="OTP" />
+    <NavigationProperty Name="Exams" Relationship="OnlineExamSystemModel.FK__Exam__UserId__2EA5EC27" FromRole="UserInfo" ToRole="Exam" />
+  </EntityType>
+  <EntityContainer Name="OnlineExamSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+    <EntitySet Name="OTPs" EntityType="OnlineExamSystemModel.OTP" />
+    <AssociationSet Name="FK__OTP__UserId__1E6F845E" Association="OnlineExamSystemModel.FK__OTP__UserId__1E6F845E">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="OTP" EntitySet="OTPs" />
+    </AssociationSet>
+    <EntitySet Name="Levels" EntityType="OnlineExamSystemModel.Level" />
+    <EntitySet Name="Exams" EntityType="OnlineExamSystemModel.Exam" />
+    <AssociationSet Name="FK__Exam__LevelId__2F9A1060" Association="OnlineExamSystemModel.FK__Exam__LevelId__2F9A1060">
+      <End Role="Level" EntitySet="Levels" />
+      <End Role="Exam" EntitySet="Exams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exam__SubjectId__308E3499" Association="OnlineExamSystemModel.FK__Exam__SubjectId__308E3499">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Exam" EntitySet="Exams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exam__UserId__2EA5EC27" Association="OnlineExamSystemModel.FK__Exam__UserId__2EA5EC27">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Exam" EntitySet="Exams" />
+    </AssociationSet>
+    <EntitySet Name="Questions" EntityType="OnlineExamSystemModel.Question" />
+    <AssociationSet Name="FK__Question__LevelI__42ACE4D4" Association="OnlineExamSystemModel.FK__Question__LevelI__42ACE4D4">
+      <End Role="Level" EntitySet="Levels" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question__Subjec__41B8C09B" Association="OnlineExamSystemModel.FK__Question__Subjec__41B8C09B">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="OTP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OTP1" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="UserInfo" Relationship="OnlineExamSystemModel.FK__OTP__UserId__1E6F845E" FromRole="OTP" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK__OTP__UserId__1E6F845E">
+    <End Type="OnlineExamSystemModel.UserInfo" Role="UserInfo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="OnlineExamSystemModel.OTP" Role="OTP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OTP">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Level">
+    <Key>
+      <PropertyRef Name="LevelId" />
+    </Key>
+    <Property Name="LevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Exams" Relationship="OnlineExamSystemModel.FK__Exam__LevelId__2F9A1060" FromRole="Level" ToRole="Exam" />
+    <NavigationProperty Name="Questions" Relationship="OnlineExamSystemModel.FK__Question__LevelI__42ACE4D4" FromRole="Level" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="ExamId" />
+    </Key>
+    <Property Name="ExamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="LevelId" Type="Int32" />
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="ExamMarks" Type="Int32" />
+    <NavigationProperty Name="Level" Relationship="OnlineExamSystemModel.FK__Exam__LevelId__2F9A1060" FromRole="Exam" ToRole="Level" />
+    <NavigationProperty Name="Subject" Relationship="OnlineExamSystemModel.FK__Exam__SubjectId__308E3499" FromRole="Exam" ToRole="Subject" />
+    <NavigationProperty Name="UserInfo" Relationship="OnlineExamSystemModel.FK__Exam__UserId__2EA5EC27" FromRole="Exam" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK__Exam__LevelId__2F9A1060">
+    <End Type="OnlineExamSystemModel.Level" Role="Level" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="OnlineExamSystemModel.Exam" Role="Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Level">
+        <PropertyRef Name="LevelId" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exam__SubjectId__308E3499">
+    <End Type="OnlineExamSystemModel.Subject" Role="Subject" Multiplicity="0..1" />
+    <End Type="OnlineExamSystemModel.Exam" Role="Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exam__UserId__2EA5EC27">
+    <End Type="OnlineExamSystemModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="OnlineExamSystemModel.Exam" Role="Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="LevelId" Type="Int32" />
+    <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Option1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Option2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Option3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Option4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="Int32" />
+    <NavigationProperty Name="Level" Relationship="OnlineExamSystemModel.FK__Question__LevelI__42ACE4D4" FromRole="Question" ToRole="Level" />
+    <NavigationProperty Name="Subject" Relationship="OnlineExamSystemModel.FK__Question__Subjec__41B8C09B" FromRole="Question" ToRole="Subject" />
+  </EntityType>
+  <Association Name="FK__Question__LevelI__42ACE4D4">
+    <End Type="OnlineExamSystemModel.Level" Role="Level" Multiplicity="0..1" />
+    <End Type="OnlineExamSystemModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Level">
+        <PropertyRef Name="LevelId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question__Subjec__41B8C09B">
+    <End Type="OnlineExamSystemModel.Subject" Role="Subject" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="OnlineExamSystemModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

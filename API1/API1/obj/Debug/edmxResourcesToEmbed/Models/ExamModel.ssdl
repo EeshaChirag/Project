@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineExamSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminEmail" />
+    </Key>
+    <Property Name="AdminEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AdminPassword" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="ExamId" />
+    </Key>
+    <Property Name="ExamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="LevelId" Type="int" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="ExamMarks" Type="int" />
+  </EntityType>
+  <EntityType Name="Level">
+    <Key>
+      <PropertyRef Name="LevelId" />
+    </Key>
+    <Property Name="LevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LevelName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="OTP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OTP" Type="int" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="LevelId" Type="int" />
+    <Property Name="Question" Type="nvarchar(max)" />
+    <Property Name="Option1" Type="nvarchar(max)" />
+    <Property Name="Option2" Type="nvarchar(max)" />
+    <Property Name="Option3" Type="nvarchar(max)" />
+    <Property Name="Option4" Type="nvarchar(max)" />
+    <Property Name="Answer" Type="int" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectId" />
+    </Key>
+    <Property Name="SubjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="10" />
+    <Property Name="DateofBirth" Type="date" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Qualification" Type="nvarchar" MaxLength="20" />
+    <Property Name="YearofCompletion" Type="date" />
+  </EntityType>
+  <Association Name="FK__Exam__LevelId__2F9A1060">
+    <End Role="Level" Type="Self.Level" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Level">
+        <PropertyRef Name="LevelId" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exam__SubjectId__308E3499">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exam__UserId__2EA5EC27">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Exam">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OTP__UserId__1E6F845E">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OTP" Type="Self.OTP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OTP">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question__LevelI__42ACE4D4">
+    <End Role="Level" Type="Self.Level" Multiplicity="0..1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Level">
+        <PropertyRef Name="LevelId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="LevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question__Subjec__41B8C09B">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OnlineExamSystemModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Level" EntityType="Self.Level" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OTP" EntityType="Self.OTP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Exam__LevelId__2F9A1060" Association="Self.FK__Exam__LevelId__2F9A1060">
+      <End Role="Level" EntitySet="Level" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exam__SubjectId__308E3499" Association="Self.FK__Exam__SubjectId__308E3499">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exam__UserId__2EA5EC27" Association="Self.FK__Exam__UserId__2EA5EC27">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Exam" EntitySet="Exam" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OTP__UserId__1E6F845E" Association="Self.FK__OTP__UserId__1E6F845E">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="OTP" EntitySet="OTP" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question__LevelI__42ACE4D4" Association="Self.FK__Question__LevelI__42ACE4D4">
+      <End Role="Level" EntitySet="Level" />
+      <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question__Subjec__41B8C09B" Association="Self.FK__Question__Subjec__41B8C09B">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

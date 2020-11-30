@@ -1,0 +1,122 @@
+<div class="container">
+    <form [formGroup]="registerform" (ngSubmit)="onFormSubmit()">
+        <div class = "register">
+            Register here!!!
+        </div>
+        <div>
+            <label>UserName</label>
+            <input type="text" placeholder="Enter User Name" formControlName="UserName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }" />
+            <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
+                <div *ngIf="f.UserName.errors.required">
+                    <small class="text-danger">User Name is required</small>   
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>UserEmail</label>
+                <input type="text" placeholder="Enter Email" formControlName="UserEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserEmail.errors }" />
+                <div *ngIf="submitted && f.UserEmail.errors" class="invalid-feedback">
+                    <div *ngIf="f.UserEmail.errors.required">
+                        <small class="text-danger">Email is required</small>
+                    </div>
+                    <div *ngIf="f.UserEmail.errors.UserEmail">
+                        <small class="text-danger">Email must be a valid email address</small>
+                    </div>
+                </div>
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" formControlName="UserPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserPassword.errors }" />
+            <div *ngIf="submitted && f.UserPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.UserPassword.errors.required">
+                    <small class="text-danger">Password is required</small>
+                </div>
+                <div *ngIf="f.UserPassword.errors.minlength">
+                    <small class="text-danger">Password must be at least 6 characters</small>
+                </div>
+            </div>
+        </div>
+        <!--<div>
+            <label>Confirm Password</label>
+            <input type="password" placeholder="Confirm Your UserPassword" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.confirmPassword.errors.required">
+                    <small class="text-danger">Confirm Password is required</small>
+                </div>
+                <div *ngIf="f.confirmPassword.errors.mustMatch">
+                    <small class="text-danger">Passwords must match</small>
+                </div>
+            </div>
+        </div>-->
+        <div>
+            <label>Mobile Number</label>
+            <input type="text" placeholder="+91-" formControlName="MobileNo" class="form-control" [ngClass]="{'is-invalid': submitted && f.MobileNo.errors}"/>
+            <div *ngIf="submitted && f.MobileNo.errors" class="invalid-feedback">
+                <div *ngIf="f.MobileNo.errors.required">
+                    <small class="text-danger">Mobile Number is required</small>
+                </div>
+                <div *ngIf="f.MobileNo.errors.pattern">
+                    <small class="text-danger">Please, Enter 10 digit Mobile Number</small>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>Date of Birth</label>
+            <input type="date" placeholder="YYYY-MM-DD" formControlName="DateofBirth" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.DateofBirth.errors }" />
+            <div *ngIf="submitted && f.DateofBirth.errors" class="invalid-feedback">
+                <div *ngIf="f.DateofBirth.errors.required">
+                    <small class="text-danger">Date of Birth is required</small>
+                </div>
+                <div *ngIf="f.DateofBirth.errors.pattern">
+                    <small class="text-danger">Date of Birth must be a valid date in the format YYYY-MM-DD</small>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>City</label>
+            <input type="text" placeholder="Enter Present City" formControlName="City" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.City.errors }" />
+            <div *ngIf="submitted && f.City.errors" class="invalid-feedback">
+                <div *ngIf="f.City.errors.required">
+                    <small class="text-danger">City is required</small>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>State</label>
+            <input type="text" placeholder="Enter State" formControlName="State" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.State.errors }" />
+            <div *ngIf="submitted && f.State.errors" class="invalid-feedback">
+                <div *ngIf="f.State.errors.required">
+                    <small class="text-danger">State is required</small>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>Qualification</label>
+            <input type="text" placeholder="Enter Qualification" formControlName="Qualification" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Qualification.errors }" />
+            <div *ngIf="submitted && f.Qualification.errors" class="invalid-feedback">
+                <div *ngIf="f.Qualification.errors.required">
+                    <small class="text-danger">Qualification is required</small>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label>Year of Completion</label>
+            <input type="date" placeholder="YYYY-MM-DD" formControlName="YearofCompletion" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.YearofCompletion.errors }" />
+            <div *ngIf="submitted && f.YearofCompletion.errors" class="invalid-feedback">
+                <div *ngIf="f.YearofCompletion.errors.required">
+                    <small class="text-danger">Year of Completion is required</small>
+                </div>
+                <div *ngIf="f.YearofCompletion.errors.pattern">
+                    <small class="text-danger">Year of Completion must be a valid date in the format YYYY-MM-DD</small>
+                </div>
+            </div>
+        </div>
+        <button class="registerbtn" type="register" [disabled]="!registerform.valid">Register</button>
+        <div>Already have an account? <a href="http://localhost:4200/login">Login</a></div>
+        <div>
+            <router-outlet></router-outlet>
+            
+        </div>
+    </form>   
+</div>
+

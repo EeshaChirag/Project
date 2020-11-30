@@ -1,0 +1,58 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Search the Students</h2>
+   <!-- <div class="jumbotran"> -->
+        <form [formGroup]="SForm" (ngSubmit)="Search()">
+            <div class="form-group">
+                <label for="subject"><b>Subject</b></label><br/>
+                <select style="display:list-item" [(ngModel)]="sobject.sid" formControlName="sid" required> 
+                  <option value="0">--Select--</option>
+                  <option  *ngFor="let sub of subject;" value={{sub.SubjectId}}>{{sub.SubjectName}}</option>
+              </select>
+            </div>
+            <br>
+  
+                <label for="level"><b>Level</b></label><br/>
+                <select style="display:list-item" [(ngModel)]="sobject.lid" formControlName="lid" required > 
+                  <option value="0">--Select--</option>
+                  <option *ngFor="let l of level" value={{l.LevelId}}>{{l.LevelName}}</option>
+              </select>
+            <br>
+
+                <label for="Marks"><b>Marks</b></label><br/>
+                    <input type="text" placeholder="Enter Marks" [(ngModel)]="sobject.marks" formControlName="marks" required>
+            <br>
+
+            <button class="btn btn-success" type="submit">Search Student</button>&nbsp;&nbsp;
+        </form>
+  <!--  </div>  -->
+</div>
+
+
+  <div>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+     </style>
+     <table style="width:100%"> 
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile Number</th>
+        <th>State</th>
+        <th>City</th>
+        <th>Marks</th>
+    </tr>
+    <tr *ngFor="let r of result;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{r.Name}}</td>
+        <td>{{r.EmailId}}</td>
+        <td>{{r.MobileNo}}</td>
+        <td>{{r.State}}</td>
+        <td>{{r.City}}</td>
+        <td>{{r.Marks}}</td>
+    </tr>
+    </table>
+</div>

@@ -1,0 +1,26 @@
+<nav class="topnav">
+    <div class="container-fluid">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Online Exam</a>
+      </div>
+      <ul  class="left hide-on-med-and-down">
+        <li *ngIf="!(loginsessionuser|| loginsessionadmin)"><a routerLink="home">Home</a></li>
+        <li *ngIf="!(loginsessionuser|| loginsessionadmin)"><a routerLink="aboutus">About us</a></li>
+        <li *ngIf="loginsessionuser"><a routerLink="selectexam">Exam</a></li>
+        <li *ngIf="loginsessionuser"><a routerLink="report">Report</a></li>
+        <li *ngIf="loginsessionadmin"><a routerLink="adminques">Add Question</a></li>
+        <li *ngIf="loginsessionadmin"><a routerLink="search">Search</a></li>
+
+        <ul  class="right hide-on-med-and-down">
+            <li  *ngIf="!(loginsessionuser|| loginsessionadmin)"><a routerLink="registration"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+            <li  *ngIf="!(loginsessionuser|| loginsessionadmin)"><a routerLink="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li  *ngIf="(loginsessionuser|| loginsessionadmin)"><a (click)="logOut()">Log Out</a></li>
+            <li  *ngIf="(loginsessionuser|| loginsessionadmin)"><a>Hello {{username}}!</a></li>
+          </ul>
+  
+      </ul>
+    </div>
+  </nav>
+  <div>
+      <router-outlet></router-outlet>
+  </div>

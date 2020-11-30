@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col s8 offset-s2">
+      <h2 class="header">Completed!</h2>
+      <div class="card horizontal">
+        <div class="card-stacked">
+          <div class="card-content">
+            <h3>{{examservice.correctAnswerCount}}/10</h3>
+            <span>Time Elapsed : {{examservice.displayTimeElapsed()}}</span>
+          </div>
+          <div class="card-action">
+            <button class="btn" (click)="OnSubmit()">Submit</button>
+            <h4>Please Submit the result to get the report</h4>
+          </div>
+        </div>
+        <a class="btn-floating halfway-fab waves-effect waves-light red" (click)="restart()">
+          <i class="material-icons">replay</i>
+        </a>
+      </div>
+
+
+      <div class="row" *ngIf="lid == 1">
+        <div *ngIf="examservice.correctAnswerCount>= 5">
+          <h3>Congratulations You passed the  First Level.</h3>
+          <h4>To go on the next level. Click the below button</h4>
+          <button class="btn" (click)="Onnext()">Go to the next Level</button>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="lid == 2">
+        <div *ngIf="examservice.correctAnswerCount>= 5">
+          <p>Congratulations You passed the  Second Level.</p>
+      </div>
+
+
+

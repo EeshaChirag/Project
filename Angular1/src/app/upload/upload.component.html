@@ -1,0 +1,39 @@
+<div class="container">  
+    <br>  
+    <div class="row">  
+        <div class="col-md-6">  
+            <input class="form-control" type="file" #fileInput />  
+        </div>  
+        <div class="col-md-6">  
+            <button class="btn btn-primary" (click)="uploadFile();">Upload</button>  
+        </div>  
+    </div> 
+    <div><h4 class="alert-success">{{message}}</h4></div> 
+    <div>  
+        <table class="table">  
+            <tr class="btn-primary">  
+                <th>Subject Id</th>  
+                <th>Level Id</th>  
+                <th>Question</th>  
+                <th>Option 1</th>  
+                <th>Option 2</th>  
+                <th>Option 3</th>
+                <th>Option 4</th>  
+                <th>Answer</th>   
+  
+            </tr>  
+            <tr *ngFor="let q of question | async">   
+                <td>{{q.SubjectId}}</td>  
+                <td>{{q.LevelId}}</td>  
+                <td>{{q.Question1}}</td> 
+                <td style="width: 100px">{{q.Option1}}</td>
+                <td style="width: 100px">{{q.Option2}}</td>
+                <td style="width: 100px">{{q.Option3}}</td>
+                <td style="width: 100px">{{q.Option4}}</td>
+                <td>{{q.Answer}}</td>   
+  
+            </tr>  
+  
+        </table>  
+    </div>  
+</div>

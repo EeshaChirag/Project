@@ -1,0 +1,46 @@
+
+
+<!--<div class="col-md-6 col-md-offset-3">
+  <h2>Select Exam</h2>
+  <div class="jumbotran">
+      <form [formGroup]="IdForm" (ngSubmit)="Submit()">
+          <div class="form-group">
+              <label for="subject"><b>Subject</b></label><br/>
+              <select style="display:list-item" [(ngModel)]="idobject.sid" formControlName="SId" required> 
+                <option value="0">--Select--</option>
+                <option  *ngFor="let sub of subject;" value={{sub.SubjectId}}>{{sub.SubjectName}}</option>
+            </select>
+          </div><br>
+
+            <div>
+              <label for="level"><b>Level</b></label><br/>
+              <select style="display:list-item" [(ngModel)]="idobject.lid" formControlName="LId" required > 
+                <option value="0">--Select--</option>
+                <option *ngFor="let l of level" value={{l.LevelId}}>{{l.LevelName}}</option>
+            </select>
+          </div> <br>
+          <button class="btn btn-success" type="submit">Start the Exam</button>&nbsp;&nbsp;
+      </form>
+  </div>
+</div>-->
+
+<div class="col-md-6 col-md-offset-3">
+  <h2>Select Exam</h2>
+  <div class="jumbotran">
+      <form [formGroup]="IdForm" (ngSubmit)="Submit()">
+          <div class="form-group">
+              <label for="subject"><b>Subject</b></label><br/>
+              <select style="display:list-item" [(ngModel)]="usidobject.sid" formControlName="SId" required> 
+                <option value="0">--Select--</option>
+                <option  *ngFor="let sub of subject;" value={{sub.SubjectId}}>{{sub.SubjectName}}</option>
+            </select>
+          </div>
+          <br>
+          <button class="btn btn-success" type="submit">Start the Exam</button>&nbsp;&nbsp;
+      </form>
+  </div>
+</div>
+
+
+
+
