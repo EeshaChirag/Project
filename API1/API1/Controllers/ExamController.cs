@@ -41,6 +41,86 @@ namespace API1.Controllers
             return db.UserInfoes.ToList();
         }
 
+        [ResponseType(typeof(Question))]
+        [Route("api/Question1")]
+        public IHttpActionResult GetQuestion1(int uid, int sid)
+        {
+            UserInfo userinfo = db.UserInfoes.Find(uid);
+            Subject subject = db.Subjects.Find(sid);
+            if (userinfo != null && subject != null)
+            {
+                var questions = (from q in db.Questions
+                                 join s in db.Subjects
+                                 on q.SubjectId equals s.SubjectId
+                                 where q.SubjectId == sid && q.LevelId == 1
+                                 select new
+                                 {
+                                     QuestionId = q.QuestionId,
+                                     Question1 = q.Question1,
+                                     q.Option1,
+                                     q.Option2,
+                                     q.Option3,
+                                     q.Option4
+                                 }).OrderBy(y => Guid.NewGuid()).Take(10).ToArray();
+
+                var updated = questions.AsEnumerable().Select(x => new
+                {
+
+                    QuestionId = x.QuestionId,
+                    Question = x.Question1,
+                    Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
+                }).ToList();
+
+                return Ok(updated);
+
+            }
+
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [ResponseType(typeof(Question))]
+        [Route("api/Question2")]
+        public IHttpActionResult GetQuestion2(int uid, int sid)
+        {
+            UserInfo userinfo = db.UserInfoes.Find(uid);
+            Subject subject = db.Subjects.Find(sid);
+            if (userinfo != null && subject != null)
+            {
+                var questions = (from q in db.Questions
+                                 join s in db.Subjects
+                                 on q.SubjectId equals s.SubjectId
+                                 where q.SubjectId == sid && q.LevelId == 2
+                                 select new
+                                 {
+                                     QuestionId = q.QuestionId,
+                                     Question1 = q.Question1,
+                                     q.Option1,
+                                     q.Option2,
+                                     q.Option3,
+                                     q.Option4
+                                 }).OrderBy(y => Guid.NewGuid()).Take(10).ToArray();
+
+                var updated = questions.AsEnumerable().Select(x => new
+                {
+
+                    QuestionId = x.QuestionId,
+                    Question = x.Question1,
+                    Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
+                }).ToList();
+
+                return Ok(updated);
+
+            }
+
+            else
+            {
+                return NotFound();
+            }
+        }
+
 
         //[ResponseType(typeof(Question))]
         //public IHttpActionResult GetQuestions(int sid, int lid)
@@ -82,153 +162,120 @@ namespace API1.Controllers
         //}
 
 
-        [ResponseType(typeof(Question))]
-        [Route("api/Question1")]
-        public IHttpActionResult GetQuestion1(int uid, int sid)
-        {
-            UserInfo userinfo = db.UserInfoes.Find(uid);
-            Subject subject = db.Subjects.Find(sid);
-            if(userinfo != null)
-            {
-                var level = (from e in db.Exams
-                             where e.UserId == uid
-                             select e.LevelId).FirstOrDefault();
+        //[ResponseType(typeof(Question))]
+        //[Route("api/Question1")]
+        //public IHttpActionResult GetQuestion1(int uid, int sid)
+        //{
+        //    UserInfo userinfo = db.UserInfoes.Find(uid);
+        //    Subject subject = db.Subjects.Find(sid);
+        //    if(userinfo != null)
+        //    {
+        //        var level = (from e in db.Exams
+        //                     where e.UserId == uid
+        //                     select e.LevelId).FirstOrDefault();
 
-                var marks=(from e in db.Exams
-                          where e.SubjectId==sid &&
-                          e.UserId==uid &&
-                          e.LevelId==level
-                          select e.ExamMarks).FirstOrDefault();
+        //        var marks=(from e in db.Exams
+        //                  where e.SubjectId==sid &&
+        //                  e.UserId==uid &&
+        //                  e.LevelId==level
+        //                  select e).Max(e=>e.ExamMarks);
+                               
 
-                if (subject != null && marks>=5)
-                {
-                    var questions = (from q in db.Questions
-                                     join s in db.Subjects
-                                     on q.SubjectId equals s.SubjectId 
-                                     where q.SubjectId == sid && q.LevelId == 2
-                                     select new
-                                     {
-                                         QuestionId = q.QuestionId,
-                                         Question1 = q.Question1,
-                                         q.Option1,
-                                         q.Option2,
-                                         q.Option3,
-                                         q.Option4
-                                     }).Take(10).ToArray();
+        //        if (subject != null && marks>=5)
+        //        {
+        //            var questions = (from q in db.Questions
+        //                             join s in db.Subjects
+        //                             on q.SubjectId equals s.SubjectId 
+        //                             where q.SubjectId == sid && q.LevelId == 2
+        //                             select new
+        //                             {
+        //                                 LevelId=q.LevelId,
+        //                                 QuestionId = q.QuestionId,
+        //                                 Question1 = q.Question1,
+        //                                 q.Option1,
+        //                                 q.Option2,
+        //                                 q.Option3,
+        //                                 q.Option4
+        //                             }).OrderBy(y => Guid.NewGuid()).Take(10).ToArray();
 
-                    var updated = questions.AsEnumerable().Select(x => new
-                    {
-                        QuestionId = x.QuestionId,
-                        Question = x.Question1,
-                        Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
-                    }).ToList();
+        //            var updated = questions.AsEnumerable().Select(x => new
+        //            {
+        //                LevelId=x.LevelId,
+        //                QuestionId = x.QuestionId,
+        //                Question = x.Question1,
+        //                Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
+        //            }).ToList();
 
-                    return Ok(updated);
+        //            return Ok(updated);
 
-                }
-                else
-                {
+        //        }
+        //        else
+        //        {
 
-                    var questions = (from q in db.Questions
-                                     join s in db.Subjects
-                                     on q.SubjectId equals s.SubjectId
-                                     where q.SubjectId == sid && q.LevelId == 1
-                                     select new
-                                     {
-                                         QuestionId = q.QuestionId,
-                                         Question1 = q.Question1,
-                                         q.Option1,
-                                         q.Option2,
-                                         q.Option3,
-                                         q.Option4
-                                     }).Take(10).ToArray();
+        //            var questions = (from q in db.Questions
+        //                             join s in db.Subjects
+        //                             on q.SubjectId equals s.SubjectId
+        //                             where q.SubjectId == sid && q.LevelId == 1
+        //                             select new
+        //                             {
+        //                                 QuestionId = q.QuestionId,
+        //                                 Question1 = q.Question1,
+        //                                 q.Option1,
+        //                                 q.Option2,
+        //                                 q.Option3,
+        //                                 q.Option4
+        //                             }).OrderBy(y => Guid.NewGuid()).Take(10).ToArray();
 
-                    var updated = questions.AsEnumerable().Select(x => new
-                    {
-                        QuestionId = x.QuestionId,
-                        Question = x.Question1,
-                        Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
-                    }).ToList();
+        //            var updated = questions.AsEnumerable().Select(x => new
+        //            {
+                      
+        //                QuestionId = x.QuestionId,
+        //                Question = x.Question1,
+        //                Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
+        //            }).ToList();
 
-                    return Ok(updated);
-                }
+        //            return Ok(updated);
+        //        }
 
-            }
-            else
-            {
-                if (subject != null)
-                {
-                    var questions = (from q in db.Questions
-                                     join s in db.Subjects
-                                     on q.SubjectId equals s.SubjectId
-                                     where q.SubjectId == sid && q.LevelId==1
-                                     select new
-                                     {
-                                         QuestionId = q.QuestionId,
-                                         Question1 = q.Question1,
-                                         q.Option1,
-                                         q.Option2,
-                                         q.Option3,
-                                         q.Option4
-                                     }).OrderBy(y => Guid.NewGuid()).Take(10).ToArray();
+        //    }
+        //    else
+        //    {
+        //        if (subject != null)
+        //        {
+        //            var questions = (from q in db.Questions
+        //                             join s in db.Subjects
+        //                             on q.SubjectId equals s.SubjectId
+        //                             where q.SubjectId == sid && q.LevelId==1
+        //                             select new
+        //                             {
+        //                                 QuestionId = q.QuestionId,
+        //                                 Question1 = q.Question1,
+        //                                 q.Option1,
+        //                                 q.Option2,
+        //                                 q.Option3,
+        //                                 q.Option4
+        //                             }).OrderBy(y => Guid.NewGuid()).Take(10).ToArray();
 
-                    var updated = questions.AsEnumerable().Select(x => new
-                    {
-                        QuestionId = x.QuestionId,
-                        Question = x.Question1,
-                        Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
-                    }).ToList();
+        //            var updated = questions.AsEnumerable().Select(x => new
+        //            {
+        //                QuestionId = x.QuestionId,
+        //                Question = x.Question1,
+        //                Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
+        //            }).ToList();
 
-                    return Ok(updated);
+        //            return Ok(updated);
 
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }   
-        }
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+        //    }   
+        //}
 
 
 
-        [ResponseType(typeof(Question))]
-        [Route("api/Question2")]
-        public IHttpActionResult GetQuestion2(int uid, int sid)
-        {
-            UserInfo userinfo = db.UserInfoes.Find(uid);
-            Subject subject = db.Subjects.Find(sid);
-            if (userinfo != null && subject!=null)
-            {
-                    var questions = (from q in db.Questions
-                                     join s in db.Subjects
-                                     on q.SubjectId equals s.SubjectId
-                                     where q.SubjectId == sid && q.LevelId == 2
-                                     select new
-                                     {
-                                         QuestionId = q.QuestionId,
-                                         Question1 = q.Question1,
-                                         q.Option1,
-                                         q.Option2,
-                                         q.Option3,
-                                         q.Option4
-                                     }).Take(10).ToArray();
 
-                    var updated = questions.AsEnumerable().Select(x => new
-                    {
-                        QuestionId = x.QuestionId,
-                        Question = x.Question1,
-                        Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
-                    }).ToList();
-
-                    return Ok(updated);
-
-                }
-
-            else
-            {
-                return NotFound();
-            }
-        }
 
 
 

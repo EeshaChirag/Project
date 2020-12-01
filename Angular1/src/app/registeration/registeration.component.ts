@@ -22,7 +22,7 @@ export class RegisterationComponent implements OnInit {
       UserName:['', Validators.required],
       UserEmail:['', [Validators.required, Validators.email]],
       UserPassword:['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
+      ConfirmPassword: ['', Validators.required],
       MobileNo:['',[Validators.required,Validators.pattern(/^((\\+91-?)|0)?[0-9]{10}$/)]],
       DateofBirth:['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       City:['', Validators.required],
@@ -30,7 +30,7 @@ export class RegisterationComponent implements OnInit {
       Qualification:['', Validators.required],
       YearofCompletion:['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
    },{
-    //validator:MustMatch('Password','confirmPassword')
+    validator:MustMatch('UserPassword','ConfirmPassword')
    });
   }
 
@@ -39,7 +39,7 @@ export class RegisterationComponent implements OnInit {
     return this.registerform.controls;
   }
 
-  onFormSubmit()    
+  /*onSubmit()  
   {    
     if (this.registerform.invalid)
     {
@@ -48,18 +48,31 @@ export class RegisterationComponent implements OnInit {
      
       this.Createuser(user); 
     }
+    alert ('Successfully registered!!');
     
        
-  }   
+  } */  
+
+  onSubmit(){
+    this.submitted = true;
+
+    if(this.registerform.invalid)
+    {
+      return;
+    }
+    const user = this.registerform .value;   
+    this.Createuser(user);
+    alert ('Successfully registered!!');
+  }
   
   Createuser(register:RegisterationComponent)    
-  { 
-    debugger;   
+  {   
+    debugger;
   this.examservice.CreateUser(register).subscribe(    
     ()=>    
     {    
       this.data = true;    
-      this.message = 'Data saved Successfully';    
+      //this.message = 'Data saved Successfully';    
       this.registerform.reset();    
     });
 

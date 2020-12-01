@@ -1,11 +1,10 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Search the Students</h2>
+<h2 style="text-align:center;" >Search the Students</h2> <br>
+    <div class="wrapper">
    <!-- <div class="jumbotran"> -->
         <form [formGroup]="SForm" (ngSubmit)="Search()">
             <div class="form-group">
                 <label for="subject"><b>Subject</b></label><br/>
                 <select style="display:list-item" [(ngModel)]="sobject.sid" formControlName="sid" required> 
-                  <option value="0">--Select--</option>
                   <option  *ngFor="let sub of subject;" value={{sub.SubjectId}}>{{sub.SubjectName}}</option>
               </select>
             </div>
@@ -13,7 +12,6 @@
   
                 <label for="level"><b>Level</b></label><br/>
                 <select style="display:list-item" [(ngModel)]="sobject.lid" formControlName="lid" required > 
-                  <option value="0">--Select--</option>
                   <option *ngFor="let l of level" value={{l.LevelId}}>{{l.LevelName}}</option>
               </select>
             <br>
@@ -22,13 +20,17 @@
                     <input type="text" placeholder="Enter Marks" [(ngModel)]="sobject.marks" formControlName="marks" required>
             <br>
 
-            <button class="btn btn-success" type="submit">Search Student</button>&nbsp;&nbsp;
+            <button class="btn btn-success" type="submit">Search Student</button>&nbsp;&nbsp; 
         </form>
-  <!--  </div>  -->
+
 </div>
+<br>
 
 
-  <div>
+
+
+
+  <div class="container">
     <style>
         table, th, td {
             border: 1px solid black;

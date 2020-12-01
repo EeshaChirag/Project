@@ -38,8 +38,7 @@ export class AddquestionComponent implements OnInit {
   {
     debugger;
     this.questionservice.insertQues(this.ques).subscribe((data)=>{this.result = data;})
-    //window.alert("Question Added!!!")
-    this.quesform.reset();
+  window.alert("Question Added!!!")
     this.fetchQues();
   }
   

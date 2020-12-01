@@ -28,8 +28,15 @@
 
       <div class="row" *ngIf="lid == 2">
         <div *ngIf="examservice.correctAnswerCount>= 5">
-          <p>Congratulations You passed the  Second Level.</p>
+          <p>Congratulations!!! You passed the  Second Level.</p>
       </div>
+    </div>
+
+    
+        <div *ngIf="examservice.correctAnswerCount< 5">
+          <p>You failed the exam, Please try again.</p>
+        </div>
+    
 
 
 

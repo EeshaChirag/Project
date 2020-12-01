@@ -21,10 +21,12 @@ namespace API1.Controllers
 
         public string UploadExcel()
         {
-
             string message = "";
-            HttpResponseMessage result = null;
-            var httpRequest = HttpContext.Current.Request;
+            try
+            {
+                
+                HttpResponseMessage result = null;
+                var httpRequest = HttpContext.Current.Request;
                 if (httpRequest.Files.Count > 0)
                 {
                     HttpPostedFile file = httpRequest.Files[0];
@@ -41,6 +43,7 @@ namespace API1.Controllers
                     else
                     {
                         message = "This file format is not supported";
+                        return message;
                     }
                     DataSet XLSRecords = reader.AsDataSet();
                     reader.Close();
@@ -78,9 +81,17 @@ namespace API1.Controllers
                 else
                 {
                     result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    message = "Please choose the file";
                 }
-            return message;
+                return message;
+            }
 
+            catch(Exception)
+            {
+                message = "Please enter the file as instructed";
+                return message;
+
+            }
         }
         // [Route("Questions")]
         [HttpGet]

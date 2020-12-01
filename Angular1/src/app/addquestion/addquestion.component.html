@@ -1,8 +1,7 @@
-<div>
+<!--<div>
     <form #quesform="ngForm">
         <p>
-            SujectID:
-            <!--<input type="text" name="subjectId" [(ngModel)]="ques.SubjectId" #subjectId=ngModel>-->
+            Suject:
             <select style="display:list-item" [(ngModel)]="ques.SubjectId"  [ngModelOptions]="{standalone: true}">>
                 <option [value]="0">--Select--</option>
                 <option [value]="1">Java</option>
@@ -11,8 +10,7 @@
             </select>
         </p>
         <p>
-            LevelID:
-            <!--<input type="text" name="levelId" [(ngModel)]="ques.LevelId" #levelId=ngModel>-->
+            Level:
             <select style="display:list-item" [(ngModel)]="ques.LevelId"  [ngModelOptions]="{standalone: true}">> 
                 <option [value]="0">--Select--</option>
                 <option [value]="1">Easy</option>
@@ -77,4 +75,87 @@
             <td><button (click)="getparticularQues(q.QuestionId)">Edit</button></td>
         </tr>
         </table>
-    </div>
+    </div>-->
+
+    <div>
+        <form #quesform="ngForm">
+            <p>
+                Subject:
+                <!--<input type="text" name="subjectId" [(ngModel)]="ques.SubjectId" #subjectId=ngModel>-->
+                <select style="display:list-item" [(ngModel)]="ques.SubjectId"  [ngModelOptions]="{standalone: true}">>
+                    <option [value]="0">--Select--</option>
+                    <option [value]="1">Java</option>
+                    <option [value]="2">Sql</option>
+                    <option [value]="3">PHP</option>
+                </select>
+            </p>
+            <p>
+                Level:
+                <!--<input type="text" name="levelId" [(ngModel)]="ques.LevelId" #levelId=ngModel>-->
+                <select style="display:list-item" [(ngModel)]="ques.LevelId"  [ngModelOptions]="{standalone: true}">> 
+                    <option [value]="0">--Select--</option>
+                    <option [value]="1">Easy</option>
+                    <option [value]="2">Difficult</option>
+                </select>
+    
+            </p>
+            <p>
+                Question:
+                <input type="text" name="question" [(ngModel)]="ques.Question1" #question=ngModel>
+            </p>
+            <p>
+                Option1:
+                <input type="text" name="option1" [(ngModel)]="ques.Option1" #option1=ngModel>
+            </p>
+            <p>
+                Option2:
+                <input type="text" name="option2" [(ngModel)]="ques.Option2" #option2=ngModel>
+            </p>
+            <p>
+                Option3:
+                <input type="text" name="option3" [(ngModel)]="ques.Option3" #option3=ngModel>
+            </p>
+            <p>
+                Option4:
+                <input type="text" name="option4" [(ngModel)]="ques.Option4" #option4=ngModel>
+            </p>
+            <p>
+                Answer:
+                <input type="number" name="answer" [(ngModel)]="ques.Answer" #answer=ngModel placeholder="0/1/2/3">
+            </p>
+            <p><button (click)="addQues()">Add Question</button> &nbsp; &nbsp; <button (click)="updateparticularQues(ques)">Update Question</button></p>
+        </form>
+        </div>
+        <br>
+        <div>
+            <style>
+                table, th, td {
+                    border: 1px solid black;
+                    text-align: center;
+                }
+             </style>
+             <table style="width:100%"> 
+            <tr>
+                <th>No.</th>
+                <th>Question</th>
+                <th>Option1</th>
+                <th>Option2</th>
+                <th>Option3</th>
+                <th>Option4</th>
+                <th>Answer</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
+            <tr *ngFor="let q of questions;let i=index">
+                <td>{{i+1}}</td>
+                <td>{{q.Question1}}</td>
+                <td>{{q.Option1}}</td>
+                <td>{{q.Option2}}</td>
+                <td>{{q.Option3}}</td>
+                <td>{{q.Option4}}</td>
+                <td>{{q.Answer}}</td>
+                <td><button (click)="removeQues(q.QuestionId)">Delete</button></td>
+                <td><button (click)="getparticularQues(q.QuestionId)">Edit</button></td>
+            </tr>
+            </table>
+        </div>

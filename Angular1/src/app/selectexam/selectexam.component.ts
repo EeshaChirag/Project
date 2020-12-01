@@ -66,6 +66,7 @@ export class SelectexamComponent implements OnInit {
   {
     this.usidobject.uid=JSON.parse(sessionStorage.getItem('userId'));
     localStorage.setItem('SId',this.usidobject.sid.toString());
+    //localStorage.setItem('SId',this.usidobject.sid.toString());
     let id = 1;
     localStorage.LId = JSON.stringify(id);
     this.examservice.getQuestion1(this.usidobject).subscribe(

@@ -24,6 +24,7 @@ export class ForgetpasswordComponent implements OnInit {
   }
 
   VerifyEmail() {
+    localStorage.setItem('Email',this.emailId)
     this.examservice.ForgotPassword(this.emailId).subscribe((response: any) => {
       if (response == "Success") {
         this.isValidEmailId = true;

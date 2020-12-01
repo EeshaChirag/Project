@@ -1,11 +1,12 @@
+
 <div class="container">
-    <form [formGroup]="registerform" (ngSubmit)="onFormSubmit()">
+    <form [formGroup]="registerform" (ngSubmit)="onSubmit()">
         <div class = "register">
             Register here!!!
         </div>
         <div>
-            <label>UserName</label>
-            <input type="text" placeholder="Enter User Name" formControlName="UserName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }" />
+            <label>User Name</label>
+            <input type="text" placeholder="Enter UserName" formControlName="UserName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }" />
             <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
                 <div *ngIf="f.UserName.errors.required">
                     <small class="text-danger">User Name is required</small>   
@@ -13,19 +14,19 @@
             </div>
         </div>
         <div>
-            <label>UserEmail</label>
+            <label>User Email</label>
                 <input type="text" placeholder="Enter Email" formControlName="UserEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserEmail.errors }" />
                 <div *ngIf="submitted && f.UserEmail.errors" class="invalid-feedback">
                     <div *ngIf="f.UserEmail.errors.required">
                         <small class="text-danger">Email is required</small>
                     </div>
-                    <div *ngIf="f.UserEmail.errors.UserEmail">
+                    <div *ngIf="f.UserEmail.errors.email">
                         <small class="text-danger">Email must be a valid email address</small>
                     </div>
                 </div>
         </div>
         <div>
-            <label>Password</label>
+            <label>User Password</label>
             <input type="password" placeholder="Enter Password" formControlName="UserPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.UserPassword.errors }" />
             <div *ngIf="submitted && f.UserPassword.errors" class="invalid-feedback">
                 <div *ngIf="f.UserPassword.errors.required">
@@ -36,18 +37,18 @@
                 </div>
             </div>
         </div>
-        <!--<div>
+        <div>
             <label>Confirm Password</label>
-            <input type="password" placeholder="Confirm Your UserPassword" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                <div *ngIf="f.confirmPassword.errors.required">
+            <input type="password" placeholder="Confirm Your Password" formControlName="ConfirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }" />
+            <div *ngIf="submitted && f.ConfirmPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.ConfirmPassword.errors.required">
                     <small class="text-danger">Confirm Password is required</small>
                 </div>
-                <div *ngIf="f.confirmPassword.errors.mustMatch">
+                <div *ngIf="f.ConfirmPassword.errors.mustMatch">
                     <small class="text-danger">Passwords must match</small>
                 </div>
             </div>
-        </div>-->
+        </div>
         <div>
             <label>Mobile Number</label>
             <input type="text" placeholder="+91-" formControlName="MobileNo" class="form-control" [ngClass]="{'is-invalid': submitted && f.MobileNo.errors}"/>
@@ -111,12 +112,7 @@
                 </div>
             </div>
         </div>
-        <button class="registerbtn" type="register" [disabled]="!registerform.valid">Register</button>
+        <button class="registerbtn" type="register">Register</button>
         <div>Already have an account? <a href="http://localhost:4200/login">Login</a></div>
-        <div>
-            <router-outlet></router-outlet>
-            
-        </div>
     </form>   
 </div>
-

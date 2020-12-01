@@ -1,4 +1,4 @@
-<div class="container">  
+<!--<div class="container">  
     <br>  
     <div class="row">  
         <div class="col-md-6">  
@@ -36,4 +36,27 @@
   
         </table>  
     </div>  
+</div>-->
+
+<div class="container">  
+    <br>  
+    <div class="row">  
+        <div class="col-md-6">  
+            <input class="form-control" type="file" #fileInput />  
+        </div>  
+        <div class="col-md-6">  
+            <button class="btn btn-primary" (click)="uploadFile();">Upload</button>  
+        </div>  
+    </div> 
+    <div><h4 class="alert-success">{{message}}</h4></div> 
 </div>
+
+<div class="container">
+    <h2>Instructions</h2>
+      <p>1. Select a file of .xls or .xlxs format.</p>
+      <p>2. The file should contain SubjectId, LevelId, Question, Option 1, Option 2, Option 3, Option 4 and Answer 
+          should be in order of  if the option1 is the answer than write 0, for option2-1, option3-2,option4-3.</p> 
+     <p>3. The file should not have any sort of header the content should only be there.</p>
+ <p>4.For Subject Id 1 is Java, 2 is SQL, 3 is PHP.</p>
+ <p>5.For Level Id 1 is Easy, 2 is difficult.</p>
+   </div>

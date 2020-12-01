@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExamService } from 'src/Service/exam.service';
 import { Forgotmodel } from '../Model/forget.model';
+import { MustMatch } from '../Model/MustMatch';
 
 @Component({
   selector: 'app-resetpassword',
@@ -25,7 +26,7 @@ export class ResetpasswordComponent implements OnInit {
       confirmPassword: ['', Validators.required],
       OTP: ['', [Validators.required, Validators.minLength(6)]]
     },
-      //{ validator: MustMatch('password', 'confirmPassword') }
+    //{validator:MustMatch('UserPassword','ConfirmPassword')}
     );
   }
 
@@ -38,11 +39,12 @@ export class ResetpasswordComponent implements OnInit {
     if (this.forgotForm.invalid) {
       return;
     }
-    model.EmailId = this.emailId;
+    model.EmailId = localStorage.getItem('Email');
     this.examservice.ChangePassword(model).subscribe((response: any) => {
       if (response == "Success") {
         alert("Password changed Successfully.");
         this.router.navigate(['login']);
+        localStorage.clear();
       }
       else {
         this.errorMsg = response;
